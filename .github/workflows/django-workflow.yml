@@ -1,0 +1,48 @@
+name: Django CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Get Branch Name
+        run: echo "BRANCH=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+
+      - name: Docker Compose Up
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: ${{ secrets.DEBUG }}
+          POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+        run: docker-compose up -d
+
+      - name: Run Tests with docker
+        run: docker exec cars-api python -m pytest
+
+      - name: Write coverage
+        run: docker exec cars-api coverage json
+
+      - name: Get Coverage for badge
+        run: echo "COVERAGE=$(cat coverage.json | jq .totals.percent_covered)%" >> $GITHUB_ENV
+
+      - name: Create Badge
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: a1817190b63b0cd8f551cb3ec2ab6524
+          filename: ${{ github.event.repository.name }}${{ env.BRANCH }}_coverage.json
+          label: Code Coverage
+          message: ${{ env.COVERAGE }}
+          color: green
+          namedLogo: GitHub Actions

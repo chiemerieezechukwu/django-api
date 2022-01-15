@@ -1,4 +1,5 @@
 # Cars API
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/chiemerieezechukwu/a1817190b63b0cd8f551cb3ec2ab6524/raw/django-api_master_coverage.json)
 
 ## Getting started quickly
 Clone this repository and rename the `.env.example` in the root of the project to `.env`
