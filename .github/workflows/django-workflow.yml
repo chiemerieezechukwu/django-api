@@ -41,7 +41,7 @@ jobs:
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: a1817190b63b0cd8f551cb3ec2ab6524
-          filename: ${{ github.event.repository.name }}${{ env.BRANCH }}_coverage.json
+          filename: ${{ github.event.repository.name }}_${{ env.BRANCH }}_coverage.json
           label: Code Coverage
           message: ${{ env.COVERAGE }}
           color: green
