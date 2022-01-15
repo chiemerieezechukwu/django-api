@@ -1,0 +1,16 @@
+[run]
+branch = true
+omit =
+    */venv/*
+    */tests/*
+    */staticfiles/*
+    */migrations/*
+    */settings/*
+    */urls.py
+    */wsgi.py
+    */asgi.py
+    */tests.py
+    manage.py
+
+[report]
+show_missing = true
