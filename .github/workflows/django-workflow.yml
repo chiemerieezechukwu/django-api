@@ -17,21 +17,17 @@ jobs:
       - name: Get Branch Name
         run: echo "BRANCH=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
 
-      - name: Docker Compose Up
+      - name: Install requirements
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: ${{ secrets.DEBUG }}
-          POSTGRES_NAME: ${{ secrets.POSTGRES_NAME }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-        run: docker-compose up -d
+        run: pip install -r requirements.txt
 
-      - name: Run Tests with docker
-        run: docker exec cars-api python -m pytest
+      - name: Run Tests
+        run: pytest
 
       - name: Write coverage
-        run: docker exec cars-api coverage json
+        run: coverage json
 
       - name: Get Coverage for badge
         run: echo "COVERAGE=$(cat coverage.json | jq .totals.percent_covered)%" >> $GITHUB_ENV

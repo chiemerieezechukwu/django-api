@@ -1,4 +1,5 @@
 # Cars API
+[![Django CI](https://github.com/chiemerieezechukwu/django-api/actions/workflows/django-workflow.yml/badge.svg?branch=master)](https://github.com/chiemerieezechukwu/django-api/actions/workflows/django-workflow.yml)
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/chiemerieezechukwu/a1817190b63b0cd8f551cb3ec2ab6524/raw/django-api_master_coverage.json)
 
 ## Getting started quickly
