@@ -55,7 +55,7 @@ class CarSerializer(DynamicHyperlinkedModelSerializer):
 
         """
         These custom fields control which fields are not shown by default.
-        They will be returned if the request explicity requests them
+        They will be returned if the request explicitly requests them
 
         Example:
         GET /cars/1/?include=category&include=engine
